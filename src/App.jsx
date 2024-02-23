@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     // get data from server
-    axios.get("http://localhost:3000/api/v1/users")
+    axios.get("https://healthy-boa-lingerie.cyclic.app/api/v1/users")
       .then((res) => {
         setData(res.data)
       }).catch((err) => {
@@ -20,7 +20,7 @@ const App = () => {
   }, [data])
 
   function deletetodo(id) {
-    axios.delete(`http://localhost:3000/api/v1/users/${id}`)
+    axios.delete(`https://healthy-boa-lingerie.cyclic.app/api/v1/users/${id}`)
       .then((res) => {
         console.log(res.data);
       }).catch((err) => {
@@ -30,7 +30,7 @@ const App = () => {
 
   function saveEdit(id) {
     setShowBtn(true);
-    axios.put(`http://localhost:3000/api/v1/users/${id}`,
+    axios.put(`https://healthy-boa-lingerie.cyclic.app/api/v1/users/${id}`,
       {
         editValue: editValue
       })
@@ -52,7 +52,7 @@ const App = () => {
       alert("Please Enter  a Task");
       return
     }
-    axios.post("http://localhost:3000/api/v1/users", {
+    axios.post("https://healthy-boa-lingerie.cyclic.app/api/v1/users", {
       todo: todo.current.value
     })
       .then((res) => {
