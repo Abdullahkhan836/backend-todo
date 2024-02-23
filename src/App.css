@@ -1,0 +1,13 @@
+.parent{
+    position: relative;
+}
+
+.child{
+    position: absolute;
+    right: 10px;
+}
+
+.childtwo{
+    position: absolute;
+    right: 95px;
+}
