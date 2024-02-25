@@ -15,3 +15,7 @@
 .rounded{
     overflow: auto;
 }
+
+body{
+    background-color: oklch(0.25 0.02 252.45);
+}
