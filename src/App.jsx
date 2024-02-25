@@ -4,36 +4,42 @@ import "./App.css"
 
 const App = () => {
   const [showBtn, setShowBtn] = useState(true)
-  const todo = useRef()
+  // const todo = useRef()
   const [data, setData] = useState(null)
   const [editValue, setEditValue] = useState('')
+  const [todo, setTodo] = useState('')
 
 
   useEffect(() => {
+      
     // get data from server
+    gettingData()
+  }, [todo, data])
+
+  function gettingData() {
     axios.get("https://backend-hello-api.vercel.app/api/v1/users")
-      .then((res) => {
-        setData(res.data)
-      }).catch((err) => {
-        console.log(err);
-      })
-  }, [data])
+    .then((res) => {
+      setData(res.data)
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
 
   // sending data to server//
 
   function addTodo(e) {
     e.preventDefault()
-    if (todo.current.value === "") {
+    if (todo === "") {
       alert("Please Enter  a Task");
       return
     }
     axios.post("https://backend-hello-api.vercel.app/api/v1/users", {
-      todo: todo.current.value
+      todo: todo
     })
       .then((res) => {
         console.log(res.data);
-        todo.current.value = '';
+        setTodo('')
       }).catch((err) => {
         console.log(err);
       })
@@ -81,7 +87,7 @@ const App = () => {
     <div >
       <div className='m-16 '>
         <form className='flex justify-center ' onSubmit={addTodo}>
-          <input ref={todo} type="text" placeholder="Enter Todo" className="input input-bordered input-primary w-[400px] " />
+          <input onChange={(e) => setTodo(e.target.value)} type="text" placeholder="Enter Todo" className="input input-bordered input-primary w-[400px] " />
           <button type='submit' className=" ml-5 btn btn-active btn-primary">ADD TODO</button>
 
 
