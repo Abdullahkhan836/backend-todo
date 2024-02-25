@@ -11,3 +11,7 @@
     position: absolute;
     right: 95px;
 }
+
+.rounded{
+    overflow: auto;
+}

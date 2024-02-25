@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     // get data from server
-    axios.get("https://tiny-tan-greyhound-boot.cyclic.app/api/v1/users")
+    axios.get("https://backend-hello-api.vercel.app/api/v1/users")
       .then((res) => {
         setData(res.data)
       }).catch((err) => {
@@ -19,8 +19,30 @@ const App = () => {
       })
   }, [data])
 
+
+  // sending data to server//
+
+  function addTodo(e) {
+    e.preventDefault()
+    if (todo.current.value === "") {
+      alert("Please Enter  a Task");
+      return
+    }
+    axios.post("https://backend-hello-api.vercel.app/api/v1/users", {
+      todo: todo.current.value
+    })
+      .then((res) => {
+        console.log(res.data);
+        todo.current.value = '';
+      }).catch((err) => {
+        console.log(err);
+      })
+  }
+
+  // Deleting data from server//
+
   function deletetodo(id) {
-    axios.delete(`https://tiny-tan-greyhound-boot.cyclic.app/api/v1/users/${id}`)
+    axios.delete(`https://backend-hello-api.vercel.app/api/v1/users/${id}`)
       .then((res) => {
         console.log(res.data);
       }).catch((err) => {
@@ -28,9 +50,16 @@ const App = () => {
       })
   }
 
+
+
+  // Updateing data //
   function saveEdit(id) {
     setShowBtn(true);
-    axios.put(`https://tiny-tan-greyhound-boot.cyclic.app/api/v1/users/${id}`,
+    if (editValue === "") {
+      alert("Please Enter  a Task");
+      return
+    }
+    axios.put(`https://backend-hello-api.vercel.app/api/v1/users/${id}`,
       {
         editValue: editValue
       })
@@ -46,22 +75,6 @@ const App = () => {
 
 
 
-  function addTodo(e) {
-    e.preventDefault()
-    if (todo.current.value === "") {
-      alert("Please Enter  a Task");
-      return
-    }
-    axios.post("https://tiny-tan-greyhound-boot.cyclic.app/api/v1/users", {
-      todo: todo.current.value
-    })
-      .then((res) => {
-        console.log(res.data);
-        todo.current.value = '';
-      }).catch((err) => {
-        console.log(err);
-      })
-  }
 
 
   return (
@@ -76,18 +89,20 @@ const App = () => {
       </div>
       <div className="  flex justify-center">
         <div className=" bg-black w-[550px] h-[400px] rounded  ">
-          <ul className="p-5 parent ">
+          <div className="p-5 parent ">
             {data ? data.map((item) => {
               return <div className='flex' key={item.id}>
-                {showBtn ? <li className='text-lg mt-8 flex justify-between' >{item.todo}
+                {showBtn ? <div>
+                  <h4 className='text-lg mt-8 ' >{item.todo}
                   <button onClick={() => setShowBtn(false)} className="childtwo btn btn-warning w-16 ">EDIT</button>
                   <button onClick={() => deletetodo(item.id)} className="child btn btn-error w-20 ml-3 ">DELETE</button>
-                </li>
+                </h4>
+                </div>
                   : <div className='flex  ' key={item.id}>
-                    <div>
-                      <input  onChange={(e) => setEditValue(e.target.value)} type="text" placeholder="Edit Value" className="input  input-bordered input-primary w-full max-w-xs" />
-                    </div>
-                    <div><button onClick={() => saveEdit(item.id)} className="btn btn-active btn-primary">Save Edit</button></div>
+                        <div>
+                          <input onChange={(e) => setEditValue(e.target.value)} type="text" placeholder="Edit Value" className="input  input-bordered input-primary w-[350px] max-w-lg" />
+                        </div>
+                      <div><button onClick={() => saveEdit(item.id)} className="btn btn-active ml-5 btn-primary">Save Edit</button></div>
 
                   </div>}
               </div>
@@ -96,7 +111,7 @@ const App = () => {
 
 
               : <h1>Loading... </h1>}
-          </ul>
+          </div>
         </div>
       </div>
     </div>
