@@ -15,11 +15,12 @@ const App = () => {
       axios.get("https://backend-hello-api.vercel.app/api/v1/users")
       .then((res) => {
         setData(res.data)
+        console.log(res.data);
       }).catch((err) => {
         console.log(err);
       })
     
-  }, [data])
+  }, [addTodo])
 
 
 
