@@ -4,17 +4,18 @@
 
 .child{
     position: absolute;
+    top: 15px;
     right: 10px;
 }
 
 .childtwo{
     position: absolute;
     right: 95px;
+    top: 15px;
+
 }
 
-.rounded{
-    overflow: auto;
-}
+
 
 body{
     background-color: oklch(0.25 0.02 252.45);
